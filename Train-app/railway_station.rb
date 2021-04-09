@@ -29,7 +29,7 @@ class RailwayStation
 
   def send_train(train)
     get_train_params(train)
-    
+
     if @trains.key?(@number)
       @trains.delete(@number)
       puts "The train with number: #{@number} leave station #{@name}"

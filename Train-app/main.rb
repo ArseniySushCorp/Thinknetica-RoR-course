@@ -33,6 +33,8 @@ freight_train.move('Toyohashi')
 freight_train.near_stations
 
 Nagoya = RailwayStation.new('Nagoya')
+Tsushima = RailwayStation.new('Tsushima')
+
 puts 'take_train'
 Nagoya.take_train(freight_train.hash)
 Nagoya.take_train(passenger_train.hash)
@@ -47,3 +49,10 @@ Nagoya.trains_list_by_type
 Nagoya.send_train({})
 Nagoya.trains_list
 Nagoya.trains_list_by_type
+
+tokyo_route = Route.new(Nagoya, Tsushima)
+tokyo_route.first
+tokyo_route.last
+tokyo_route.stations
+
+# Add station
