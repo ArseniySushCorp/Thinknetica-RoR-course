@@ -1,10 +1,10 @@
 class Train
-  attr_reader :number, :type, :speed, :carriage, :station, :route
+  attr_reader :number, :type, :speed, :carriage, :station, :route, :hash
 
   def initialize(number, type)
     @number = number
     @type = type
-    @train = { number => @type }
+    @hash = { number => @type }
     @speed = 0
     @carriage = 0
 
@@ -35,7 +35,7 @@ class Train
   end
 
   def delete_carriage
-    if speed_zero? and @carriage != 0
+    if speed_zero? && @carriage != 0
       puts 'The carriage has been deleted'
     else 
       puts 'The train is moving or there is no carriage in it, the carriage cannot be deleted'
@@ -49,7 +49,7 @@ class Train
   end
 
   def move(station)
-    if @route.include?(station) and !speed_zero?
+    if @route.include?(station) && !speed_zero?
       @station = station
       puts "Now train is on #{@station} station"
     else
@@ -84,5 +84,4 @@ class Train
       puts "Near stations is #{@route[station_index - 1]}, #{@station}, #{@route[station_index + 1]}"
     end
   end
-
 end
