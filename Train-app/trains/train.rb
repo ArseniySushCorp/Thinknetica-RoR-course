@@ -1,10 +1,10 @@
 class Train
-  attr_reader :number, :type, :speed, :carriage, :station, :route, :hash
+  attr_reader :number, :type, :speed, :carriages, :station, :route, :hash
 
-  def initialize(number, type, carriage)
+  def initialize(number, type)
     @number = number
     @type = type
-    @carriage = carriage
+    @carriages = []
     @hash = { number => @type }
     @speed = 0
 
@@ -25,20 +25,21 @@ class Train
     end
   end
 
-  def add_carriage
-    if speed_zero?
-      @carriage += 1
-      puts 'The carriage has been added'
+  def add_carriage(carriage)
+    if speed_zero? && valid_carriage?(carriage)
+      @carriages << carriage.hash
+      puts "The carriage type: #{carriage.type} with number: #{carriage.number} has been added"
     else
-      puts 'The train is moving, the carriage cannot be added'
+      puts 'ERROR: The train is moving or carriage not valid, cannot be added'
     end
   end
 
   def delete_carriage
-    if speed_zero? && @carriage != 0
+    if speed_zero? && !@carriages.empty?
+      @carriages.pop
       puts 'The carriage has been deleted'
     else 
-      puts 'The train is moving or there is no carriage in it, the carriage cannot be deleted'
+      puts 'ERROR: The train is moving or there is no carriage in it, the carriage cannot be deleted'
     end
   end
 

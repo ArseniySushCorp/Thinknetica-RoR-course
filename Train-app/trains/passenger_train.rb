@@ -5,7 +5,7 @@ class PassengerTrain < Train
 
   private
 
-  def can_add_carriage?(carriage)
+  def valid_carriage?(carriage)
     carriage.instance_of? PassengerCarriage
   end
 end
