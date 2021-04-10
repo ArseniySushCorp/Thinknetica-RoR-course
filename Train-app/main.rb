@@ -38,53 +38,49 @@ freight_train.near_stations
 
 puts
 puts 'RailwayStation.new'
-Nagoya = RailwayStation.new('Nagoya')
-Tsushima = RailwayStation.new('Tsushima')
-Okazaki = RailwayStation.new('Okazaki')
-Seto = RailwayStation.new('Seto')
+nagoya = RailwayStation.new('Nagoya')
+tsushima = RailwayStation.new('Tsushima')
+okazaki = RailwayStation.new('Okazaki')
+seto = RailwayStation.new('Seto')
 
 puts
-puts 'take_train'
-Nagoya.take_train(freight_train.hash)
-Nagoya.take_train(passenger_train.hash)
-Nagoya.take_train({})
-Nagoya.trains_list
-Nagoya.trains_list_by_type
+puts 'Nagoya take_train freight_train'
+nagoya.take_train(freight_train)
+puts nagoya.trains_list
+puts 'Nagoya take_train passenger_train'
+nagoya.take_train(passenger_train)
+puts nagoya.trains_list
 
 puts
-puts 'send_train'
-Nagoya.send_train(freight_train.hash)
-Nagoya.trains_list
-Nagoya.trains_list_by_type
-Nagoya.send_train({})
-Nagoya.trains_list
-Nagoya.trains_list_by_type
+puts 'Nagoya send_train freight_train'
+nagoya.send_train(freight_train)
+puts nagoya.trains_list
 
 puts
 puts 'Route.new'
-tokyo_route = Route.new(Nagoya, Tsushima)
+tokyo_route = Route.new(nagoya, tsushima)
 tokyo_route.first
 tokyo_route.last
 tokyo_route.show_all
 
 puts
 puts 'add_station'
-tokyo_route.add(Okazaki)
+tokyo_route.add(okazaki)
 tokyo_route.show_all
 tokyo_route.add('4242')
 tokyo_route.show_all
 
 puts
 puts 'delete_station'
-tokyo_route.delete(Okazaki)
+tokyo_route.delete(okazaki)
 tokyo_route.show_all
 tokyo_route.delete('4242')
 tokyo_route.show_all
 
 puts
 puts 'Train take route instance_of? Route'
-tokyo_route.add(Okazaki)
-tokyo_route.add(Seto)
+tokyo_route.add(okazaki)
+tokyo_route.add(seto)
 tokyo_route.show_all
 passenger_train.take_route(tokyo_route)
 puts passenger_train.route

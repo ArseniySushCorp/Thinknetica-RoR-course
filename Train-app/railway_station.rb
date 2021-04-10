@@ -8,50 +8,25 @@ class RailwayStation
   end
 
   def trains_list
-    puts "Now on station #{@trains.values} trains"
+    @trains.values
   end
 
   def trains_list_by_type
-    puts "Freight: #{count_trains_by_type(@trains, FREIGHT)}"
-    puts "Passenger: #{count_trains_by_type(@trains, PASSENGER)}"
+    {FREIGHT => count_trains_by_type(FREIGHT), PASSENGER => count_trains_by_type(PASSENGER)}
   end
 
   def take_train(train)
-    get_train_params(train)
-
-    if @number.empty? || @type.empty?
-      puts 'Invalid train :('
-    else
-      @trains[@number] = @type
-      puts "Train #{@number} and type #{@type} received at the station"
-    end
+    @trains[train.number] = train.type
   end
 
   def send_train(train)
-    get_train_params(train)
-
-    if @trains.key?(@number)
-      @trains.delete(@number)
-      puts "The train with number: #{@number} leave station #{@name}"
-    else
-      puts 'There is no such train at the station'
-    end
+    @trains.key?(train.number) && @trains.delete(train.number)
   end
 
   private
 
-  def get_train_params(train)
-    @number = train.keys.join
-    @type = train.values.join
-  end
-
-  def count_trains_by_type(trains, type)
-    count = 0
-
-    trains.each_value do |train_type|
-      train_type == type && count += 1
-    end
-
-    count
+  def count_trains_by_type(type)
+    trains_by_type = @trains.select { |_, v| v == type }
+    trains_by_type.size
   end
 end
