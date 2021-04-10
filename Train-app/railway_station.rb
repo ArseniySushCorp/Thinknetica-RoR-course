@@ -8,7 +8,7 @@ class RailwayStation
   end
 
   def trains_list
-    puts "Now on station #{@trains.length} trains"
+    puts "Now on station #{@trains.values} trains"
   end
 
   def trains_list_by_type
@@ -49,7 +49,7 @@ class RailwayStation
     count = 0
 
     trains.each_value do |train_type|
-      train_type == type and count += 1
+      train_type == type && count += 1
     end
 
     count

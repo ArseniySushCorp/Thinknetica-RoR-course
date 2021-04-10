@@ -1,12 +1,12 @@
 class Train
   attr_reader :number, :type, :speed, :carriage, :station, :route, :hash
 
-  def initialize(number, type)
+  def initialize(number, type, carriage)
     @number = number
     @type = type
+    @carriage = carriage
     @hash = { number => @type }
     @speed = 0
-    @carriage = 0
 
     puts "New train №#{@number}, type #{@type}"
   end
@@ -42,8 +42,8 @@ class Train
     end
   end
 
-  def take_route(route)
-    @route = route
+  def take_route(value)
+    @route = define_route(value)
     @station = @route.first
     puts "The train has a route, it's ready to go from #{@station} station!"
   end
@@ -83,5 +83,13 @@ class Train
     else
       puts "Near stations is #{@route[station_index - 1]}, #{@station}, #{@route[station_index + 1]}"
     end
+  end
+
+  def instance_of_route?(value)
+    value.instance_of? Route
+  end
+
+  def define_route(value)
+    instance_of_route?(value) ? value.stations : value
   end
 end
