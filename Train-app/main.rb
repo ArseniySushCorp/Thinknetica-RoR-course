@@ -8,16 +8,9 @@ require_relative './train'
 freight_train = Train.new('4242', FREIGHT, 0)
 passenger_train = Train.new('4343', PASSENGER, 0)
 
-puts 'RailwayStation.new'
 nagoya = RailwayStation.new('Nagoya')
 tsushima = RailwayStation.new('Tsushima')
 okazaki = RailwayStation.new('Okazaki')
-puts okazaki.name
-puts tsushima.name
 seto = RailwayStation.new('Seto')
 
-puts
-puts 'Route.new'
 tokyo_route = Route.new(nagoya, tsushima)
-tokyo_route.add(okazaki)
-tokyo_route.delete(okazaki)

@@ -3,30 +3,18 @@ class RailwayStation
 
   def initialize(name)
     @name = name
-    @trains = {}
-    puts "Station #{@name} created"
+    @trains = []
   end
 
-  def trains_list
-    @trains.values
-  end
-
-  def trains_list_by_type
-    {FREIGHT => count_trains_by_type(FREIGHT), PASSENGER => count_trains_by_type(PASSENGER)}
+  def trains_by(type)
+    @trains.select { |train| train.type == type }.size
   end
 
   def take_train(train)
-    @trains[train.number] = train.type
+    @trains << train
   end
 
   def send_train(train)
-    @trains.key?(train.number) && @trains.delete(train.number)
-  end
-
-  private
-
-  def count_trains_by_type(type)
-    trains_by_type = @trains.select { |_, v| v == type }
-    trains_by_type.size
+    @trains.delete(train) unless @trains.empty?
   end
 end
