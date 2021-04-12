@@ -5,7 +5,6 @@ class Train
     @number = number
     @type = type
     @carriage = carriage
-    @station_index = 0
     @speed = 0
   end
 
@@ -26,30 +25,45 @@ class Train
   end
 
   def station
-    @route.stations[@station_index]
+    @station = @route.find_train(self)
   end
 
   def next_station
-    @route.stations[@station_index + 1] unless station_last?
+    return if station_last?
+
+    @route.stations[station_index + 1]
   end
 
   def prev_station
-    @route.stations[@station_index - 1] unless station_first?
+    return if station_first?
+
+    @route.stations[station_index - 1]
   end
 
   def take_route(route)
     @route = route
+    @route.stations.first.take_train(self)
   end
 
   def move_forward
-    @station_index += 1 unless station_last?
+    return if station_last?
+
+    next_station.take_train(self)
+    @station.send_train(self)
   end
 
   def move_backward
-    @station_index -= 1 unless station_first?
+    return if station_first?
+
+    prev_station.take_train(self)
+    @station.send_train(self)
   end
 
   private
+
+  def station_index
+    @route.stations.index(station)
+  end
 
   def speed_zero?
     @speed.zero?
@@ -60,10 +74,10 @@ class Train
   end
 
   def station_last?
-    station == @route.stations.last
+    station == @route.last
   end
 
   def station_first?
-    station == @route.stations.first
+    station == @route.first
   end
 end
