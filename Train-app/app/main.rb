@@ -9,15 +9,10 @@ require_relative '../trains/train'
 require_relative '../trains/cargo_train'
 require_relative '../trains/passenger_train'
 
-# require_relative './routes_actions'
-# require_relative './trains_actions'
-
 class Main
-  def initialize
-    @stations = []
-    @routes = []
-    @carriages = []
-    @trains = []
+  def initialize(data = {})
+    @data = data
+    start
   end
 
   def start
@@ -43,9 +38,10 @@ class Main
   end
 end
 
-
 require_relative './menu'
 require_relative './create_menu'
+require_relative './trains_actions'
+require_relative './routes_actions'
 
 
-Main.new.start
+Main.new

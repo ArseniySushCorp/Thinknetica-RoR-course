@@ -1,7 +1,5 @@
 class CreateMenu < Menu
-  def initialize
-    super
-  end
+  attr_reader :data
 
   def start
     catch(:exit) do
@@ -71,11 +69,11 @@ class CreateMenu < Menu
     system('clear')
     puts "------CREATE #{train}------"
     puts 'Enther train number:'
-    train_number = user_input
-    @trains << train.new(train_number)
+    train_number = user_input.to_i
+    @data[:trains] << train.new(train_number)
 
     system('clear')
-    puts "Train #{@trains.last.inspect} created"
+    puts "Train #{@data[:trains].last.inspect} created"
     no_commands
   end
 
@@ -83,11 +81,11 @@ class CreateMenu < Menu
     system('clear')
     puts "------CREATE #{carriage}------"
     puts 'Enther carriage number:'
-    carriage_number = user_input
-    @carriages << carriage.new(carriage_number)
+    carriage_number = user_input.to_i
+    @data[:carriages] << carriage.new(carriage_number)
 
     system('clear')
-    puts "Carriage #{@carriages.last.inspect} created"
+    puts "Carriage #{@data[:carriages].last.inspect} created"
     no_commands
   end
 
@@ -96,20 +94,20 @@ class CreateMenu < Menu
     puts '------CREATE STATION------'
     puts 'Enther station name:'
     station_name = user_input
-    @stations << RailwayStation.new(station_name)
+    @data[:stations] << RailwayStation.new(station_name)
 
     system('clear')
-    puts "Station #{@stations.last.inspect} created"
+    puts "Station #{@data[:stations].last.inspect} created"
     no_commands
   end
 
   def create_route_menu
     first_station = choose_stations('first')
     last_station = choose_stations('last')
-    @routes << Route.new(first_station, last_station)
+    @data[:routes] << Route.new(first_station, last_station)
 
     system('clear')
-    puts "Route #{@routes.last.inspect} created"
+    puts "Route #{@data[:routes].last.inspect} created"
     no_commands
   end
 
@@ -117,15 +115,8 @@ class CreateMenu < Menu
     system('clear')
     puts '------CREATE ROUTE------'
     puts "Choose #{order} stations for route:"
-    @stations.each { |station| puts "#{@stations.index(station)} - #{station.inspect}" }
-    station_index = user_input
 
-    @stations[station_index.to_i]
-  end
-
-  def no_commands
-    puts 'Press any key for continue'
-    user_input
+    choose_station
   end
 
   def create_actions(value)
@@ -133,7 +124,6 @@ class CreateMenu < Menu
     puts "2 - Passenger #{value}"
     puts 'b - for back'
   end
-
 
   def create_actions_list
     puts '1 - create new train'

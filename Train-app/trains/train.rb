@@ -18,7 +18,7 @@ class Train
 
   def add_carriage(carriage)
     if speed_zero? && valid_carriage?(carriage)
-      @carriages << carriage.hash
+      @carriages << carriage
     else
       puts 'ERROR: The train is moving or carriage not valid, cannot be added'
     end
@@ -27,7 +27,7 @@ class Train
   def delete_carriage
     if speed_zero? && !@carriages.empty?
       @carriages.pop
-    else 
+    else
       puts 'ERROR: The train is moving or there is no carriage in it, the carriage cannot be deleted'
     end
   end
