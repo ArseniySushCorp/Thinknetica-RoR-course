@@ -17,7 +17,7 @@ class Train
   end
 
   def add_carriage(carriage)
-    if speed_zero? && valid_carriage?(carriage)
+    if speed_zero? && @type.eql?(carriage.type)
       @carriages << carriage
     else
       puts 'ERROR: The train is moving or carriage not valid, cannot be added'

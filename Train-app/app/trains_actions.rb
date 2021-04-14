@@ -10,6 +10,8 @@ class TrainsActions < Menu
     train_actions
   end
 
+  private
+
   def train_actions
     catch(:exit) do
       loop do
@@ -17,7 +19,7 @@ class TrainsActions < Menu
         puts '------TRAIN ACTIONS------'
         train_actions_list
         menu_command = user_input
-        throw :exit if menu_command == 'q'
+        throw :exit if menu_command == 'b'
 
         case menu_command
         when '1'
@@ -72,19 +74,12 @@ class TrainsActions < Menu
     end
   end
 
-  def trains_actions_list
-    puts '1 - move forward'
-    puts '2 - move backward'
-    puts '3 - take route'
-    puts 'q - for quit'
-  end
-
   def train_actions_list
     puts '1 - add carriage'
     puts '2 - delete carriage'
     puts '3 - move forward'
     puts '4 - move backward'
     puts '5 - take route'
-    puts 'q - for quit'
+    puts 'b - for back'
   end
 end

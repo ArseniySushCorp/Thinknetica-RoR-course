@@ -7,9 +7,9 @@ class CreateMenu < Menu
         system('clear')
         puts '------CREATE MENU------'
         create_actions_list
-        entered_command = user_input
-        throw :exit if entered_command == 'b'
-        case entered_command
+        command = user_input
+        throw :exit if command == 'b'
+        case command
         when '1'
           switch(create_train_menu)
         when '2'
@@ -25,15 +25,17 @@ class CreateMenu < Menu
     end
   end
 
+  private
+
   def create_train_menu
     catch(:exit) do
       loop do
         system('clear')
         puts '------CREATE TRAIN------'
         create_actions('train')
-        entered_command = user_input
-        throw :exit if entered_command == 'b'
-        case entered_command
+        command = user_input
+        throw :exit if command == 'b'
+        case command
         when '1'
           switch(create_train(CargoTrain))
         when '2'
@@ -51,9 +53,9 @@ class CreateMenu < Menu
         system('clear')
         puts '------CREATE CARRIAGE------'
         create_actions('carriage')
-        entered_command = user_input
-        throw :exit if entered_command == 'b'
-        case entered_command
+        command = user_input
+        throw :exit if command == 'b'
+        case command
         when '1'
           switch(create_carriage(CargoCarriage))
         when '2'

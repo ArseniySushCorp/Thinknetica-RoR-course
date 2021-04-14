@@ -27,46 +27,10 @@ class Menu < Main
     end
   end
 
-  def switch_menu(action)
-    @data = action.data
-    action
-  end
+  protected
 
   def data
     { trains: @trains, stations: @stations, routes: @routes, carriages: @carriages }
-  end
-
-  def create_menu
-    CreateMenu.new(@data)
-  end
-
-  def trains_actions
-    TrainsActions.new(@data)
-  end
-
-  def routes_actions
-    RoutesActions.new(@data)
-  end
-
-  def display
-    @data.each { |arr| arr.each { |value| puts value.inspect } }
-  end
-
-  def menu_actions_list
-    puts '1 - create train, carriage, station, route'
-    puts '2 - trains actions'
-    puts '3 - routes actions'
-    puts 'q - for quit'
-  end
-
-  def no_match(value)
-    puts "First create a #{value}"
-    user_input
-  end
-
-  def no_commands
-    puts 'Enter any for continue'
-    user_input
   end
 
   def choose_train
@@ -98,5 +62,35 @@ class Menu < Main
     @data[:carriages].each { |carriage| puts "#{@data[:carriages].index(carriage)} - #{carriage.inspect}" }
     carriage_index = user_input.to_i
     @data[:carriages][carriage_index]
+  end
+
+  private
+
+  def create_menu
+    CreateMenu.new(@data)
+  end
+
+  def trains_actions
+    TrainsActions.new(@data)
+  end
+
+  def routes_actions
+    RoutesActions.new(@data)
+  end
+
+  def display
+    @data.each { |arr| arr.each { |value| puts value.inspect } }
+  end
+
+  def switch_menu(action)
+    @data = action.data
+    action
+  end
+
+  def menu_actions_list
+    puts '1 - create train, carriage, station, route'
+    puts '2 - trains actions'
+    puts '3 - routes actions'
+    puts 'q - for quit'
   end
 end

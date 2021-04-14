@@ -19,6 +19,8 @@ class Main
     menu.start
   end
 
+  protected
+
   def menu
     Menu.new
   end
@@ -30,6 +32,16 @@ class Main
   def wrong
     system('clear')
     puts 'Invalid command, press any key for continue'
+    user_input
+  end
+
+  def no_match(value)
+    puts "First create a #{value}"
+    user_input
+  end
+
+  def no_commands
+    puts 'Enter any for continue'
     user_input
   end
 

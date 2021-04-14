@@ -10,6 +10,8 @@ class RoutesActions < Menu
     routes_actions
   end
 
+  private
+
   def routes_actions
     catch(:exit) do
       loop do
