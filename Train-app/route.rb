@@ -24,4 +24,8 @@ class Route
   def delete(station)
     @stations.delete(station)
   end
+
+  def find_train(train)
+    @stations.find { |station| station.trains.include?(train) }
+  end
 end
