@@ -1,4 +1,5 @@
 require_relative '../creator'
+require_relative '../instance_counter'
 require_relative '../railway_station'
 require_relative '../route'
 
