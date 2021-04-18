@@ -1,4 +1,5 @@
 class Train
+  include Creator
   attr_reader :number, :type, :speed, :carriage, :route
 
   def initialize(number, type)

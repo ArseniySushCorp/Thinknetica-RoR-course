@@ -1,9 +1,16 @@
 class RailwayStation
   attr_reader :trains, :name
 
+  @@all = []
+
+  def self.all
+    @@all
+  end
+
   def initialize(name)
     @name = name
     @trains = []
+    @@all << self
   end
 
   def trains_by(type)
