@@ -1,12 +1,25 @@
 class Train
   include Creator
+  include InstanceCounter
   attr_reader :number, :type, :speed, :carriage, :route
 
+  @@all = [] 
+
+  def self.all
+    @@all
+  end
+
+  def self.find(number)
+    @@all.find { |train| train.number == number }
+  end
+
   def initialize(number, type)
+    register_instance
     @number = number
     @type = type
     @carriages = []
     @speed = 0
+    @@all << self
   end
 
   def speed_up
