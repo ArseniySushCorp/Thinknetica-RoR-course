@@ -12,6 +12,7 @@ class RailwayStation
     register_instance
     @name = name
     @trains = []
+    validate!
     @@all << self
   end
 
@@ -25,5 +26,20 @@ class RailwayStation
 
   def send_train(train)
     @trains.delete(train) unless @trains.empty?
+  end
+
+  def valid?
+    validate!
+  rescue
+    false
+  end
+
+  private
+
+  def validate!
+    raise 'Name must be string' if name.class != String
+    raise 'Name must contains at least 5 symbols' if name.length < 5
+
+    true
   end
 end

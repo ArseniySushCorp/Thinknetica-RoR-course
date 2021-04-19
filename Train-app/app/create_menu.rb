@@ -95,8 +95,13 @@ class CreateMenu < Menu
     system('clear')
     puts '------CREATE STATION------'
     puts 'Enther station name:'
-    station_name = user_input
-    @data[:stations] << RailwayStation.new(station_name)
+    begin
+      station_name = user_input
+      @data[:stations] << RailwayStation.new(station_name)
+    rescue
+      puts 'Name not valid'
+      retry
+    end
 
     system('clear')
     puts "Station #{@data[:stations].last.inspect} created"

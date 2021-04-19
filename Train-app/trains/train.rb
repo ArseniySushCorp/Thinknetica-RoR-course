@@ -3,7 +3,9 @@ class Train
   include InstanceCounter
   attr_reader :number, :type, :speed, :carriage, :route
 
-  @@all = [] 
+  TRAIN_NUMBER_REG_EXP = /^[a-z1-9]{3}-*[a-z1-9]{2}$/
+
+  @@all = []
 
   def self.all
     @@all
@@ -19,6 +21,7 @@ class Train
     @type = type
     @carriages = []
     @speed = 0
+    validate!
     @@all << self
   end
 
@@ -31,19 +34,15 @@ class Train
   end
 
   def add_carriage(carriage)
-    if speed_zero? && @type.eql?(carriage.type)
-      @carriages << carriage
-    else
-      puts 'ERROR: The train is moving or carriage not valid, cannot be added'
-    end
+    raise 'Carriage not valid or train moving' unless speed_zero? && @type.eql?(carriage.type)
+
+    @carriages << carriage
   end
 
   def delete_carriage
-    if speed_zero? && !@carriages.empty?
-      @carriages.pop
-    else
-      puts 'ERROR: The train is moving or there is no carriage in it, the carriage cannot be deleted'
-    end
+    raise 'Train moving or train wthout carriages' unless speed_zero? && !@carriages.empty?
+
+    @carriages.pop
   end
 
   def station
@@ -81,7 +80,20 @@ class Train
     @station.send_train(self)
   end
 
+  def valid?
+    validate!
+  rescue
+    false
+  end
+
   private
+
+  def validate!
+    raise 'Train number not valid' if number !~ TRAIN_NUMBER_REG_EXP
+    raise 'Train with this number already exist' if self.class.find(number)
+
+    true
+  end
 
   def station_index
     @route.stations.index(station)
