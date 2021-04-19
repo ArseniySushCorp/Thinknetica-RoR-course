@@ -34,6 +34,7 @@ class Route
 
   def valid?
     validate!
+    true
   rescue
     false
   end
@@ -42,8 +43,6 @@ class Route
 
   def validate!
     raise 'Stations not valid' unless station?(first) && station?(last)
-
-    true
   end
 
   def station?(value)

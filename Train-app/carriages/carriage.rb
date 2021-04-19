@@ -10,6 +10,7 @@ class Carriage
 
   def valid?
     validate!
+    true
   rescue
     false
   end
@@ -18,7 +19,5 @@ class Carriage
 
   def validate!
     raise 'Max value for carriage number is 10 symbols' if number.to_s.length > 10
-
-    true
   end
 end

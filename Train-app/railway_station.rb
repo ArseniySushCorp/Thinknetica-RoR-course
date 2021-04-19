@@ -30,6 +30,7 @@ class RailwayStation
 
   def valid?
     validate!
+    true
   rescue
     false
   end
@@ -39,7 +40,5 @@ class RailwayStation
   def validate!
     raise 'Name must be string' if name.class != String
     raise 'Name must contains at least 5 symbols' if name.length < 5
-
-    true
   end
 end

@@ -82,6 +82,7 @@ class Train
 
   def valid?
     validate!
+    true
   rescue
     false
   end
@@ -91,8 +92,6 @@ class Train
   def validate!
     raise 'Train number not valid' if number !~ TRAIN_NUMBER_REG_EXP
     raise 'Train with this number already exist' if self.class.find(number)
-
-    true
   end
 
   def station_index
