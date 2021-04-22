@@ -70,11 +70,15 @@ class CreateMenu < Menu
   def create_train(train)
     system('clear')
     puts "------CREATE #{train}------"
-    puts 'Enther train number:'
-    train_number = user_input.to_i
-    @data[:trains] << train.new(train_number)
+    puts 'Enter train number:'
+    begin
+      train_number = user_input
+      @data[:trains] << train.new(train_number)
+    rescue RuntimeError => e
+      puts e.inspect
+      retry
+    end
 
-    system('clear')
     puts "Train #{@data[:trains].last.inspect} created"
     no_commands
   end
@@ -82,11 +86,15 @@ class CreateMenu < Menu
   def create_carriage(carriage)
     system('clear')
     puts "------CREATE #{carriage}------"
-    puts 'Enther carriage number:'
+    puts 'Enter carriage number:'
+    begin
     carriage_number = user_input.to_i
     @data[:carriages] << carriage.new(carriage_number)
+    rescue RuntimeError => e
+      puts e.inspect
+      retry
+    end
 
-    system('clear')
     puts "Carriage #{@data[:carriages].last.inspect} created"
     no_commands
   end
@@ -94,11 +102,15 @@ class CreateMenu < Menu
   def create_station_menu
     system('clear')
     puts '------CREATE STATION------'
-    puts 'Enther station name:'
-    station_name = user_input
-    @data[:stations] << RailwayStation.new(station_name)
+    puts 'Enter station name:'
+    begin
+      station_name = user_input
+      @data[:stations] << RailwayStation.new(station_name)
+    rescue RuntimeError => e
+      puts e.inspect
+      retry
+    end
 
-    system('clear')
     puts "Station #{@data[:stations].last.inspect} created"
     no_commands
   end
@@ -106,9 +118,13 @@ class CreateMenu < Menu
   def create_route_menu
     first_station = choose_stations('first')
     last_station = choose_stations('last')
+    begin
     @data[:routes] << Route.new(first_station, last_station)
+    rescue RuntimeError => e
+      puts e.inspect
+      retry
+    end
 
-    system('clear')
     puts "Route #{@data[:routes].last.inspect} created"
     no_commands
   end
