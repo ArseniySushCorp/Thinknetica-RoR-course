@@ -80,7 +80,7 @@ class CreateMenu < Menu
     end
 
     puts "Train #{@data[:trains].last.inspect} created"
-    no_commands
+    exit
   end
 
   def create_cargo
@@ -90,7 +90,7 @@ class CreateMenu < Menu
     create_car(CargoCarriage) { 'Enter max volume for cargo carriage' }
 
     puts "Carriage #{@data[:carriages].last.inspect} created"
-    no_commands
+    exit
   end
 
   def create_passenger
@@ -100,7 +100,7 @@ class CreateMenu < Menu
     create_car(PassengerCarriage) { 'Enter max seats for passenger carriage' }
 
     puts "Carriage #{@data[:carriages].last.inspect} created"
-    no_commands
+    exit
   end
 
   def create_car(carriage)
@@ -129,7 +129,7 @@ class CreateMenu < Menu
     end
 
     puts "Station #{@data[:stations].last.inspect} created"
-    no_commands
+    exit
   end
 
   def create_route_menu
@@ -143,7 +143,7 @@ class CreateMenu < Menu
     end
 
     puts "Route #{@data[:routes].last.inspect} created"
-    no_commands
+    exit
   end
 
   def choose_stations(order)

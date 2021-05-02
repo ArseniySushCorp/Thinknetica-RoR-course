@@ -39,7 +39,8 @@ class RoutesActions < Menu
 
     @selected_route.add(@selected_station)
     puts "Station #{@selected_station.name} added to route"
-    no_commands
+
+    exit
   end
 
   def delete_station
@@ -49,7 +50,7 @@ class RoutesActions < Menu
     @selected_route.delete(@selected_station)
     puts "Station #{@selected_station.name} deleted from route"
 
-    no_commands
+    exit
   end
 
   def choose_route_stations

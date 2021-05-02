@@ -42,7 +42,7 @@ class Main
     user_input
   end
 
-  def no_commands
+  def exit
     puts 'Enter any for continue'
     user_input
   end
@@ -54,8 +54,8 @@ end
 
 require_relative './menu'
 require_relative './create_menu'
-require_relative './trains_actions'
-require_relative './routes_actions'
-
+require_relative './actions/trains_actions'
+require_relative './actions/routes_actions'
+require_relative './actions/cars_actions'
 
 Main.new

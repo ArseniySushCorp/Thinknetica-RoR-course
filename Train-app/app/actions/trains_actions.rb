@@ -60,7 +60,7 @@ class TrainsActions < Menu
       @selected_train.delete_carriage
       puts "Last carriage deleted from #{@selected_train}"
     end
-    no_commands
+    exit
   end
 
   def train_move(duration)
