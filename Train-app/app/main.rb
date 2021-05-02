@@ -66,7 +66,12 @@ class Main
 end
 
 require_relative './menu'
-require_relative './create_menu'
+require_relative './create/create_menu'
+require_relative './create/create_train'
+require_relative './create/create_car'
+require_relative './create/create_station'
+require_relative './create/create_route'
+
 require_relative './actions/trains_actions'
 require_relative './actions/routes_actions'
 require_relative './actions/cars_actions'
