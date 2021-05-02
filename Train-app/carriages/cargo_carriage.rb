@@ -15,4 +15,10 @@ class CargoCarriage < Carriage
   def free_volume
     @max_volume - @volume
   end
+
+  private
+
+  def validate!
+    raise 'Max volume must be number' unless @max_volume.is_a? Integer
+  end
 end

@@ -19,6 +19,5 @@ class Carriage
 
   def validate!
     raise 'Max value for carriage number is 10 symbols' if number.to_s.length > 10
-    raise 'count_value must be number' unless @max_volume.is_a? Integer
   end
 end
