@@ -31,6 +31,19 @@ class Main
     action
   end
 
+  def exit_loop(text, actions_list, &block)
+    catch(:exit) do
+      loop do
+        system('clear')
+        puts text
+        actions_list.each { |action| puts action }
+        command = user_input
+        throw :exit if command == 'b'
+        block.call(command)
+      end
+    end
+  end
+
   def wrong
     system('clear')
     puts 'Invalid command, press any key for continue'

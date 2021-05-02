@@ -13,28 +13,20 @@ class TrainsActions < Menu
   private
 
   def train_actions
-    catch(:exit) do
-      loop do
-        system('clear')
-        puts '------TRAIN ACTIONS------'
-        train_actions_list
-        menu_command = user_input
-        throw :exit if menu_command == 'b'
-
-        case menu_command
-        when '1'
-          switch(carriage_action('add'))
-        when '2'
-          switch(carriage_action('delete'))
-        when '3'
-          switch(train_move(:forward))
-        when '4'
-          switch(train_move(:backward))
-        when '5'
-          switch(train_take_route)
-        else
-          switch(wrong)
-        end
+    exit_loop('------TRAIN ACTIONS------', train_actions_list) do |command|
+      case command
+      when '1'
+        switch(carriage_action('add'))
+      when '2'
+        switch(carriage_action('delete'))
+      when '3'
+        switch(train_move(:forward))
+      when '4'
+        switch(train_move(:backward))
+      when '5'
+        switch(train_take_route)
+      else
+        switch(wrong)
       end
     end
   end
@@ -75,11 +67,13 @@ class TrainsActions < Menu
   end
 
   def train_actions_list
-    puts '1 - add carriage'
-    puts '2 - delete carriage'
-    puts '3 - move forward'
-    puts '4 - move backward'
-    puts '5 - take route'
-    puts 'b - for back'
+    [
+      '1 - add carriage',
+      '2 - delete carriage',
+      '3 - move forward',
+      '4 - move backward',
+      '5 - take route',
+      'b - for back'
+    ]
   end
 end

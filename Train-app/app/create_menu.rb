@@ -2,25 +2,18 @@ class CreateMenu < Menu
   attr_reader :data
 
   def start
-    catch(:exit) do
-      loop do
-        system('clear')
-        puts '------CREATE MENU------'
-        create_actions_list
-        command = user_input
-        throw :exit if command == 'b'
-        case command
-        when '1'
-          switch(create_train_menu)
-        when '2'
-          switch(create_carriage_menu)
-        when '3'
-          switch(create_station_menu)
-        when '4'
-          switch(create_route_menu)
-        else
-          switch(wrong)
-        end
+    exit_loop('------CREATE MENU------', create_actions_list) do |command|
+      case command
+      when '1'
+        switch(create_train_menu)
+      when '2'
+        switch(create_carriage_menu)
+      when '3'
+        switch(create_station_menu)
+      when '4'
+        switch(create_route_menu)
+      else
+        switch(wrong)
       end
     end
   end
@@ -28,41 +21,27 @@ class CreateMenu < Menu
   private
 
   def create_train_menu
-    catch(:exit) do
-      loop do
-        system('clear')
-        puts '------CREATE TRAIN------'
-        create_actions('train')
-        command = user_input
-        throw :exit if command == 'b'
-        case command
-        when '1'
-          switch(create_train(CargoTrain))
-        when '2'
-          switch(create_train(PassengerTrain))
-        else
-          switch(wrong)
-        end
+    exit_loop('------CREATE TRAIN------', create_actions('train')) do |command|
+      case command
+      when '1'
+        switch(create_train(CargoTrain))
+      when '2'
+        switch(create_train(PassengerTrain))
+      else
+        switch(wrong)
       end
     end
   end
 
   def create_carriage_menu
-    catch(:exit) do
-      loop do
-        system('clear')
-        puts '------CREATE CARRIAGE------'
-        create_actions('carriage')
-        command = user_input
-        throw :exit if command == 'b'
-        case command
-        when '1'
-          switch(create_cargo)
-        when '2'
-          switch(create_passenger)
-        else
-          switch(wrong)
-        end
+    exit_loop('------CREATE CARRIAGE------', create_actions('carriage')) do |command|
+      case command
+      when '1'
+        switch(create_cargo)
+      when '2'
+        switch(create_passenger)
+      else
+        switch(wrong)
       end
     end
   end
@@ -71,6 +50,7 @@ class CreateMenu < Menu
     system('clear')
     puts "------CREATE #{train}------"
     puts 'Enter train number:'
+
     begin
       train_number = user_input
       @data[:trains] << train.new(train_number)
@@ -155,16 +135,20 @@ class CreateMenu < Menu
   end
 
   def create_actions(value)
-    puts "1 - Cargo #{value}"
-    puts "2 - Passenger #{value}"
-    puts 'b - for back'
+    [
+      "1 - Cargo #{value}",
+      "2 - Passenger #{value}",
+      'b - for back'
+    ]
   end
 
   def create_actions_list
-    puts '1 - create new train'
-    puts '2 - create new carriage'
-    puts '3 - create new station'
-    puts '4 - create new route'
-    puts 'b - for back'
+    [
+      '1 - create new train',
+      '2 - create new carriage',
+      '3 - create new station',
+      '4 - create new route',
+      'b - for back'
+    ]
   end
 end

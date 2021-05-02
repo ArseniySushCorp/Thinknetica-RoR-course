@@ -13,20 +13,12 @@ class CarriagesActions < Menu
   private
 
   def cars_actions
-    catch(:exit) do
-      loop do
-        system('clear')
-        puts '------CARRIAGE ACTIONS------'
-        car_actions_list
-        command = user_input
-        throw :exit if command == 'b'
-
-        case command
-        when '1'
-          switch(action)
-        else
-          switch(wrong)
-        end
+    exit_loop('------CARRIAGE ACTIONS------', car_actions_list) do |command|
+      case command
+      when '1'
+        switch(action)
+      else
+        switch(wrong)
       end
     end
   end
@@ -58,7 +50,9 @@ class CarriagesActions < Menu
   end
 
   def car_actions_list
-    puts '1 - take seats or fill volume'
-    puts 'b - for back'
+    [
+      '1 - take seats or fill volume',
+      'b - for back'
+    ]
   end
 end

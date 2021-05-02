@@ -97,7 +97,6 @@ class Menu < Main
     puts '1 - create train, carriage, station, route'
     puts '2 - trains actions'
     puts '3 - routes actions'
-    puts '4 - carriages actions'
-    puts 'q - for quit'
+    puts '4 - carriage actions'
   end
 end
