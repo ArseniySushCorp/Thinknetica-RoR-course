@@ -28,6 +28,10 @@ class RailwayStation
     @trains.delete(train) unless @trains.empty?
   end
 
+  def each_train(&block)
+    @trains.each { |train| block.call(train) }
+  end
+
   def valid?
     validate!
     true

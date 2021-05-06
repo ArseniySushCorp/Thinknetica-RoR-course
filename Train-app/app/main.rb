@@ -31,6 +31,19 @@ class Main
     action
   end
 
+  def exit_loop(text, actions_list, &block)
+    catch(:exit) do
+      loop do
+        system('clear')
+        puts text
+        actions_list.each { |action| puts action }
+        command = user_input
+        throw :exit if command == 'b'
+        block.call(command)
+      end
+    end
+  end
+
   def wrong
     system('clear')
     puts 'Invalid command, press any key for continue'
@@ -42,7 +55,7 @@ class Main
     user_input
   end
 
-  def no_commands
+  def exit
     puts 'Enter any for continue'
     user_input
   end
@@ -53,9 +66,14 @@ class Main
 end
 
 require_relative './menu'
-require_relative './create_menu'
-require_relative './trains_actions'
-require_relative './routes_actions'
+require_relative './create/create_menu'
+require_relative './create/create_train'
+require_relative './create/create_car'
+require_relative './create/create_station'
+require_relative './create/create_route'
 
+require_relative './actions/trains_actions'
+require_relative './actions/routes_actions'
+require_relative './actions/cars_actions'
 
 Main.new

@@ -20,6 +20,8 @@ class Menu < Main
           switch_menu(trains_actions)
         when '3'
           switch_menu(routes_actions)
+        when '4'
+          switch_menu(cars_actions)
         else
           switch(wrong)
         end
@@ -78,6 +80,10 @@ class Menu < Main
     RoutesActions.new(@data)
   end
 
+  def cars_actions
+    CarriagesActions.new(@data)
+  end
+
   def display
     @data.each { |arr| arr.each { |value| puts value.inspect } }
   end
@@ -91,6 +97,6 @@ class Menu < Main
     puts '1 - create train, carriage, station, route'
     puts '2 - trains actions'
     puts '3 - routes actions'
-    puts 'q - for quit'
+    puts '4 - carriage actions'
   end
 end

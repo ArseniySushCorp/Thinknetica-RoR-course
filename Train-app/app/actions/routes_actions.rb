@@ -13,22 +13,14 @@ class RoutesActions < Menu
   private
 
   def routes_actions
-    catch(:exit) do
-      loop do
-        system('clear')
-        puts '------ROUTE ACTIONS------'
-        route_actions_list
-        command = user_input
-        throw :exit if command == 'b'
-
-        case command
-        when '1'
-          switch(add_station)
-        when '2'
-          switch(delete_station)
-        else
-          switch(wrong)
-        end
+    exit_loop('------ROUTE ACTIONS------', route_actions_list) do |command|
+      case command
+      when '1'
+        switch(add_station)
+      when '2'
+        switch(delete_station)
+      else
+        switch(wrong)
       end
     end
   end
@@ -39,7 +31,8 @@ class RoutesActions < Menu
 
     @selected_route.add(@selected_station)
     puts "Station #{@selected_station.name} added to route"
-    no_commands
+
+    exit
   end
 
   def delete_station
@@ -49,7 +42,7 @@ class RoutesActions < Menu
     @selected_route.delete(@selected_station)
     puts "Station #{@selected_station.name} deleted from route"
 
-    no_commands
+    exit
   end
 
   def choose_route_stations
@@ -74,8 +67,10 @@ class RoutesActions < Menu
   end
 
   def route_actions_list
-    puts '1 - add station'
-    puts '2 - delete station'
-    puts 'b - for back'
+    [
+      '1 - add station',
+      '2 - delete station',
+      'b - for back'
+    ]
   end
 end

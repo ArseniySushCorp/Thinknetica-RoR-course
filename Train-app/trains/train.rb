@@ -80,6 +80,10 @@ class Train
     @station.send_train(self)
   end
 
+  def each_car(&block)
+    @carriages.each { |car| block.call(car) }
+  end
+
   def valid?
     validate!
     true

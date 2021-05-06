@@ -2,7 +2,7 @@ class Carriage
   include Creator
   attr_reader :type, :number
 
-  def initialize(number, type)
+  def initialize(number, type, _count_value = 0)
     @type = type
     @number = number
     validate!
