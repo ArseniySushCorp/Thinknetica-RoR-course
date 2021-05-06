@@ -1,7 +1,9 @@
+require_relative '../modules/instance_counter'
+require_relative '../modules/validation'
 require_relative '../creator'
-require_relative '../instance_counter'
 require_relative '../railway_station'
 require_relative '../route'
+
 
 require_relative '../carriages/carriage'
 require_relative '../carriages/cargo_carriage'
