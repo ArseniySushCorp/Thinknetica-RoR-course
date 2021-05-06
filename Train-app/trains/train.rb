@@ -1,9 +1,13 @@
 class Train
+  include Validation
   include Creator
   include InstanceCounter
+
   attr_reader :number, :type, :speed, :carriage, :route
 
-  TRAIN_NUMBER_REG_EXP = /^[a-z1-9]{3}-*[a-z1-9]{2}$/
+  # validate :number, :presence
+  validate :number, :type, String
+  # validate :number, :format, /^[a-z1-9]{3}-*[a-z1-9]{2}$/
 
   @@all = []
 
@@ -21,7 +25,9 @@ class Train
     @type = type
     @carriages = []
     @speed = 0
+
     validate!
+
     @@all << self
   end
 
@@ -84,19 +90,19 @@ class Train
     @carriages.each { |car| block.call(car) }
   end
 
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
+  # def valid?
+  #   validate!
+  #   true
+  # rescue
+  #   false
+  # end
 
   private
 
-  def validate!
-    raise 'Train number not valid' if number !~ TRAIN_NUMBER_REG_EXP
-    raise 'Train with this number already exist' if self.class.find(number)
-  end
+  # def validate!
+  #   raise 'Train number not valid' if number !~ TRAIN_NUMBER_REG_EXP
+  #   raise 'Train with this number already exist' if self.class.find(number)
+  # end
 
   def station_index
     @route.stations.index(station)
