@@ -1,6 +1,11 @@
 class RailwayStation
+  include Validation
   include InstanceCounter
   attr_reader :trains, :name
+
+  validate :name, :presence
+  validate :name, :type, String
+  validate :name, :length, 5
 
   @@all = []
 
@@ -12,7 +17,9 @@ class RailwayStation
     register_instance
     @name = name
     @trains = []
+
     validate!
+
     @@all << self
   end
 
@@ -30,19 +37,5 @@ class RailwayStation
 
   def each_train(&block)
     @trains.each { |train| block.call(train) }
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
-
-  private
-
-  def validate!
-    raise 'Name must be string' if name.class != String
-    raise 'Name must contains at least 5 symbols' if name.length < 5
   end
 end

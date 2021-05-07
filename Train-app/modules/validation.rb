@@ -5,20 +5,23 @@ module Validation
   end
 
   module ClassMethods
-    def validate(type, *args)
-      validates = '@validates'
-      instance_variable_set(validates, {}) unless instance_variable_defined?(validates)
-      instance_variable_get(validates)[type] = *args
+    def validate(var_name, *args)
+      validates_name = '@validates'
+      instance_variable_set(validates_name, {}) unless instance_variable_defined?(validates_name)
+      instance_variable_get(validates_name)[var_name] ||= []
+      instance_variable_get(validates_name)[var_name] << args
     end
   end
 
   module InstanceMethods
     def validate!
-      self.class.instance_variable_get('@validates').each do |type, args|
-        method = "validate_#{args.first}"
-        value = instance_variable_get("@#{type}")
+      self.class.instance_variable_get('@validates').each do |var_name, validators|
+        validators.each do |validator|
+          method = "validator_#{validator.first}"
+          var_value = instance_variable_get("@#{var_name}")
 
-        send(method, value, *args[1, args.length])
+          send(method, var_value, *validator[1, validator.size])
+        end
       end
       true
     end
@@ -31,16 +34,20 @@ module Validation
 
     private
 
-    def validate_presence(value, message = "Can't be empty")
-      raise ArgumentError, message if var.nil? || value.is_a?(String) && value.empty?
+    def validator_presence(value, message = "Can't be empty")
+      raise ArgumentError, message if value.nil? || value.is_a?(String) && value.empty?
     end
 
-    def validate_format(value, format, message = 'Invalid format')
-      raise ArgumentError, message unless value =~ format
+    def validator_format(value, reg_exp, message = "Format not valid, #{reg_exp} expected")
+      raise ArgumentError, message unless value =~ reg_exp
     end
 
-    def validate_type(value, expected_class, message = "#{expected_class} expected")
+    def validator_type(value, expected_class, message = "#{expected_class} expected")
       raise ArgumentError, message unless value.instance_of? expected_class
+    end
+
+    def validator_length(value, expected, message = "Expected length #{expected}")
+      raise ArgumentError, message if value.is_a?(String) && value.length < expected
     end
   end
 end

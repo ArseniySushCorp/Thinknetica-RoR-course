@@ -5,9 +5,9 @@ class Train
 
   attr_reader :number, :type, :speed, :carriage, :route
 
-  # validate :number, :presence
+  validate :number, :presence
   validate :number, :type, String
-  # validate :number, :format, /^[a-z1-9]{3}-*[a-z1-9]{2}$/
+  validate :number, :format, /^[a-z1-9]{3}-*[a-z1-9]{2}$/
 
   @@all = []
 
@@ -90,19 +90,7 @@ class Train
     @carriages.each { |car| block.call(car) }
   end
 
-  # def valid?
-  #   validate!
-  #   true
-  # rescue
-  #   false
-  # end
-
   private
-
-  # def validate!
-  #   raise 'Train number not valid' if number !~ TRAIN_NUMBER_REG_EXP
-  #   raise 'Train with this number already exist' if self.class.find(number)
-  # end
 
   def station_index
     @route.stations.index(station)
