@@ -6,7 +6,7 @@ class CreateStation < CreateMenu
     begin
       station_name = user_input
       @data[:stations] << RailwayStation.new(station_name)
-    rescue RuntimeError => e
+    rescue ArgumentError => e
       puts e.inspect
       retry
     end

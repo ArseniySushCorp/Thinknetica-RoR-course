@@ -4,7 +4,7 @@ class CreateRoute < CreateMenu
     last_station = choose_stations('last')
     begin
       @data[:routes] << Route.new(first_station, last_station)
-    rescue RuntimeError => e
+    rescue ArgumentError => e
       puts e.inspect
       retry
     end

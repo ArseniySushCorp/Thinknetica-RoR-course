@@ -41,8 +41,10 @@ class CreateCarriage < CreateMenu
     puts yield
     car_count_value = user_input.to_i
 
+    raise ArgumentError, 'Number expected' if car_number.zero? || car_count_value.zero?
+
     @data[:carriages] << carriage.new(car_number, car_count_value)
-  rescue RuntimeError => e
+  rescue ArgumentError => e
     puts e.inspect
     retry
   end

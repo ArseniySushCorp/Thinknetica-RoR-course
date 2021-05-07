@@ -1,13 +1,8 @@
 class Train
-  include Validation
   include Creator
   include InstanceCounter
 
   attr_reader :number, :type, :speed, :carriage, :route
-
-  validate :number, :presence
-  validate :number, :type, String
-  validate :number, :format, /^[a-z1-9]{3}-*[a-z1-9]{2}$/
 
   @@all = []
 
@@ -25,9 +20,6 @@ class Train
     @type = type
     @carriages = []
     @speed = 0
-
-    validate!
-
     @@all << self
   end
 
