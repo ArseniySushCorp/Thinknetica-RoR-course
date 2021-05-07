@@ -6,16 +6,15 @@ module Validation
 
   module ClassMethods
     def validate(var_name, *args)
-      validates_name = '@validates'
-      instance_variable_set(validates_name, {}) unless instance_variable_defined?(validates_name)
-      instance_variable_get(validates_name)[var_name] ||= []
-      instance_variable_get(validates_name)[var_name] << args
+      instance_variable_set(VALIDATES_NAME, {}) unless instance_variable_defined?(VALIDATES_NAME)
+      @validates[var_name] ||= []
+      @validates[var_name] << args
     end
   end
 
   module InstanceMethods
     def validate!
-      self.class.instance_variable_get('@validates').each do |var_name, validators|
+      self.class.instance_variable_get(VALIDATES_NAME).each do |var_name, validators|
         validators.each do |validator|
           method = "validator_#{validator.first}"
           var_value = instance_variable_get("@#{var_name}")
@@ -47,7 +46,15 @@ module Validation
     end
 
     def validator_length(value, expected, message = "Expected length #{expected}")
-      raise ArgumentError, message if value.is_a?(String) && value.length < expected
+      raise ArgumentError, message if value.to_s.length < expected
     end
+  end
+
+  private
+
+  VALIDATES_NAME = '@validates'.freeze
+
+  def validates
+    self.class.instance_variable_get(VALIDATES_NAME)
   end
 end

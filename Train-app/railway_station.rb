@@ -1,4 +1,5 @@
 class RailwayStation
+  extend Accessor
   include Validation
   include InstanceCounter
   attr_reader :trains, :name
@@ -6,6 +7,9 @@ class RailwayStation
   validate :name, :presence
   validate :name, :type, String
   validate :name, :length, 5
+
+  attr_accessor_with_history :cashbox, :shop
+  strong_attr_accessor(:station_desc, String)
 
   @@all = []
 
