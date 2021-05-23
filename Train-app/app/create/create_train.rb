@@ -22,7 +22,7 @@ class CreateTrain < CreateMenu
     begin
       train_number = user_input
       @data[:trains] << train.new(train_number)
-    rescue RuntimeError => e
+    rescue ArgumentError => e
       puts e.inspect
       retry
     end

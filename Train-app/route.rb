@@ -1,11 +1,21 @@
 class Route
+  include Validation
   include InstanceCounter
   attr_reader :stations
 
+  validate :first, :presence
+  validate :first, :type, RailwayStation
+  validate :last, :presence
+  validate :last, :type, RailwayStation
+
   def initialize(first, last)
+    @first = first
+    @last = last
     register_instance
-    @stations = [first, last]
+
     validate!
+
+    @stations = [@first, @last]
   end
 
   def first
@@ -30,22 +40,5 @@ class Route
 
   def find_train(train)
     @stations.find { |station| station.trains.include?(train) }
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
-
-  private
-
-  def validate!
-    raise 'Stations not valid' unless station?(first) && station?(last)
-  end
-
-  def station?(value)
-    value.instance_of?(RailwayStation)
   end
 end
